@@ -1,0 +1,192 @@
+{
+  "Name": "BritishCyclingResultsScript-Loop",
+  "CreationDate": "2023-12-27",
+  "Commands": [
+    {
+      "Command": "store",
+      "Target": "fast",
+      "Value": "!replayspeed",
+      "Description": ""
+    },
+    {
+      "Command": "csvRead",
+      "Target": "BC_Member_Identifiers.csv",
+      "Value": "",
+      "Description": ""
+    },
+    {
+      "Command": "echo",
+      "Target": "Status = ${!csvReadStatus}, line = ${!csvReadLineNumber}",
+      "Value": "",
+      "Description": ""
+    },
+    {
+      "Command": "while_v2",
+      "Target": "${!csvReadStatus} == \"OK\"",
+      "Value": "",
+      "Description": ""
+    },
+    {
+      "Command": "echo",
+      "Target": "status = ${!csvReadStatus}, line = ${!csvReadLineNumber}",
+      "Value": "",
+      "Description": ""
+    },
+    {
+      "Command": "comment",
+      "Target": "Data extraction starts",
+      "Value": "",
+      "Description": ""
+    },
+    {
+      "Command": "open",
+      "Target": "https://www.britishcycling.org.uk/points?person_id=${!COL2}&year=2023",
+      "Value": "",
+      "Description": ""
+    },
+    {
+      "Command": "echo",
+      "Target": "Opened page for ${!COL1}",
+      "Value": "blue",
+      "Description": ""
+    },
+    {
+      "Command": "storeXpathCount",
+      "Target": "xpath=//*[@class=\"grid-desktop-col-full grid-tablet-col-full\"]/article/div/div/table/tbody/tr",
+      "Value": "NumRows",
+      "Description": ""
+    },
+    {
+      "Command": "echo",
+      "Target": "Number of rows = ${NumRows}",
+      "Value": "blue",
+      "Description": ""
+    },
+    {
+      "Command": "store",
+      "Target": "1",
+      "Value": "x",
+      "Description": ""
+    },
+    {
+      "Command": "while",
+      "Target": "${x} <= ${NumRows}",
+      "Value": "",
+      "Description": ""
+    },
+    {
+      "Command": "store",
+      "Target": "${!COL1}",
+      "Value": "!csvLine",
+      "Description": ""
+    },
+    {
+      "Command": "echo",
+      "Target": "Extracting row ${x}",
+      "Value": "blue",
+      "Description": ""
+    },
+    {
+      "Command": "storeText",
+      "Target": "xpath=//*[@class=\"grid-desktop-col-full grid-tablet-col-full\"]/article/div/div/table/tbody/tr[${x}]/td[1]",
+      "Value": "!csvLine",
+      "Description": ""
+    },
+    {
+      "Command": "storeText",
+      "Target": "xpath=//*[@class=\"grid-desktop-col-full grid-tablet-col-full\"]/article/div/div/table/tbody/tr[${x}]/td[2]",
+      "Value": "!csvLine",
+      "Description": ""
+    },
+    {
+      "Command": "storeText",
+      "Target": "xpath=//*[@class=\"grid-desktop-col-full grid-tablet-col-full\"]/article/div/div/table/tbody/tr[${x}]/td[3]",
+      "Value": "!csvLine",
+      "Description": ""
+    },
+    {
+      "Command": "storeText",
+      "Target": "xpath=//*[@class=\"grid-desktop-col-full grid-tablet-col-full\"]/article/div/div/table/tbody/tr[${x}]/td[4]",
+      "Value": "!csvLine",
+      "Description": ""
+    },
+    {
+      "Command": "storeText",
+      "Target": "xpath=//*[@class=\"grid-desktop-col-full grid-tablet-col-full\"]/article/div/div/table/tbody/tr[${x}]/td[5]",
+      "Value": "!csvLine",
+      "Description": ""
+    },
+    {
+      "Command": "csvSave",
+      "Target": "PPYCC_Results.csv",
+      "Value": "",
+      "Description": ""
+    },
+    {
+      "Command": "echo",
+      "Target": "Row ${x} saved",
+      "Value": "blue",
+      "Description": ""
+    },
+    {
+      "Command": "executeScript_Sandbox",
+      "Target": "return Number(${x})+1",
+      "Value": "x",
+      "Description": ""
+    },
+    {
+      "Command": "echo",
+      "Target": "Moving to Row ${x}",
+      "Value": "blue",
+      "Description": ""
+    },
+    {
+      "Command": "end",
+      "Target": "",
+      "Value": "",
+      "Description": ""
+    },
+    {
+      "Command": "executeScript_Sandbox",
+      "Target": "return Number(${!csvReadLineNumber})+1",
+      "Value": "!csvReadLineNumber",
+      "Description": ""
+    },
+    {
+      "Command": "store",
+      "Target": "true",
+      "Value": "!errorIgnore",
+      "Description": ""
+    },
+    {
+      "Command": "echo",
+      "Target": "Reading CSV line No.  ${!csvReadLineNumber} ",
+      "Value": "!errorIgnore",
+      "Description": ""
+    },
+    {
+      "Command": "csvRead",
+      "Target": "BC_Member_Identifiers.csv",
+      "Value": "",
+      "Description": ""
+    },
+    {
+      "Command": "store",
+      "Target": "false",
+      "Value": "!errorIgnore",
+      "Description": ""
+    },
+    {
+      "Command": "store",
+      "Target": "true",
+      "Value": "!StatusOK",
+      "Description": ""
+    },
+    {
+      "Command": "end",
+      "Target": "",
+      "Value": "",
+      "Description": ""
+    }
+  ]
+}
